@@ -1,63 +1,84 @@
+
 package radioman;
 
+
 public class Radio {
-    private int currentRadioStation;
+    private int currentRadioStation = 10;
+    private int maxCurrentRadioStation;
     private int currentVolume;
+    private int minVolume = 0;
+    private int maxVolume = 100;
 
-        public void setCurrentRadioStation(int station) {
-            if (station < 0) {
-                return;
-            } else if (station > 9) {
-                return;
-            } else {
-                this.currentRadioStation = station;
-            }
+    public Radio() {
+        this.maxCurrentRadioStation = currentRadioStation;
+    }
+
+    public Radio(int currentRadioStation) {
+        this.currentRadioStation = currentRadioStation;
+        this.maxCurrentRadioStation = currentRadioStation;
+    }
+
+    public void setCurrentRadioStation(int station) {
+        if (station < 0) {
+            return;
+        } else if (maxCurrentRadioStation <= station) {
+            return;
+        } else {
+            this.currentRadioStation = station;
         }
+    }
 
-        public int getCurrentRadioStation() {
+    public int getCurrentRadioStation() {
+        if (currentRadioStation < 0) {
+            return 0;
+        } else if (currentRadioStation >= maxCurrentRadioStation) {
+            return 0;
+        } else {
             return currentRadioStation;
         }
+    }
 
-        public void nextRadioStation() {
-            if (currentRadioStation == 9) {
-                currentRadioStation = 0;
-            } else {
-                this.currentRadioStation++;
-            }
+    public void nextRadioStation() {
+        if (currentRadioStation == maxCurrentRadioStation) {
+            currentRadioStation = 0;
+        } else {
+            currentRadioStation++;
         }
+    }
 
-        public void prevRadioStation() {
-            if (currentRadioStation == 0) {
-                currentRadioStation = 9;
-            } else {
-                currentRadioStation--;
-            }
+    public void prevRadioStation() {
+        if (currentRadioStation == 0) {
+            currentRadioStation = maxCurrentRadioStation;
+        } else {
+            currentRadioStation--;
         }
+    }
 
-        public void setCurrentVolume(int volume) {
-            if (volume < 0) {
-                return;
-            } else if (volume > 10) {
-                return;
-            } else {
-                this.currentVolume = volume;
-            }
+    public void setCurrentVolume(int inVolume) {
+        if (inVolume < minVolume) {
+            return;
+        } else if (inVolume > maxVolume) {
+            return;
+        } else {
+            currentVolume = inVolume;
         }
+    }
 
-        public int getCurrentVolume() {
-            return currentVolume;
-        }
+    public int getCurrentVolume() {
 
-        public void volumeUp() {
-            if (currentVolume < 10) {
-                this.currentVolume++;
-            }
-        }
+        return currentVolume;
+    }
 
-        public void volumeDown() {
-            if (currentVolume > 0) {
-                this.currentVolume--;
-            }
+    public void volumeUp() {
+        if (currentVolume < maxVolume) {
+            currentVolume++;
         }
+    }
+
+    public void volumeDown() {
+        if (currentVolume > minVolume) {
+            currentVolume--;
+        }
+    }
 
 }
